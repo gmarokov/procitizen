@@ -107,7 +107,7 @@ namespace Reporter.Data.Migrations
                 Email = "webmaster@demo.com",
                 FullName = "Webmaster",
                 JoinedOn = DateTime.Now,
-                UserName = "webmaster@reporter.com"
+                UserName = "webmaster@demo.com"
             };
             this.userManager.Create(adminUser, "qwerty1234");
             this.userManager.AddToRole(adminUser.Id, GlobalConstants.ModeratorRole);

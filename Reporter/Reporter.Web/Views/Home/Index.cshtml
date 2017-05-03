@@ -1,7 +1,9 @@
-﻿@using Reporter.Models
-@model IList<Reporter.Web.ViewModels.Reports.ReportViewModel>
+﻿@using Reporter.Web.ViewModels.Home
+
+@model IndexViewModel
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Community Home Page";
 }
 
 @*<div class="homepage-hero-module">
@@ -51,9 +53,9 @@
     </section>
     
     <section class="home row text-center">
-        <h1 class="ui horizontal divider header"> What is this? </h1>
-        <p>A few words about the project Link to more.</p>
-        <a href="/home/about" class="ui huge inverted green button">More about it</a>
+        <h1 class="ui horizontal divider header"> What actualy is this? </h1>
+        <p>The Procitozen team and its partners have the mission to consolidate and develop the capacity of civil society within the country. We give you the opportunity to pursue your civil rights arisig of your status as a inhabitant or resident in a particular territory.</p>
+        <a href="@Url.Action("about", "home", new { area = string.Empty })" class="ui huge inverted green button">More about it</a>
     </section>
     
  
@@ -61,47 +63,30 @@
         <h1 class="ui horizontal  divider header">
             Support your local community
         </h1>
-        <div class="ui statistics grid">
-            <div class="four wide column">
-                <div class="statistic">
-                    <div class="value">
-                        22
-                    </div>
-                    <div class="label">
-                        Saves
-                    </div>
+        <div class="ui three statistics">
+            <div class="statistic">
+                <div class="value">
+                    @Model.TotalReports
+                </div>
+                <div class="label">
+                    Reports
                 </div>
             </div>
-            <div class="four wide column">
-                <div class="statistic">
-                    <div class="text value">
-                        Three<br>
-                        Thousand
-                    </div>
-                    <div class="label">
-                        Signups
-                    </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="~/Content/Images/Avatars/small/default.jpg" class="ui circular inline image">
+                    @Model.TotalReporters
+                </div>
+                <div class="label">
+                    Team Members
                 </div>
             </div>
-            <div class="four wide column">
-                <div class="statistic">
-                    <div class="value">
-                        <i class="plane icon"></i> 5
-                    </div>
-                    <div class="label">
-                        Flights
-                    </div>
+            <div class="statistic">
+                <div class="value">
+                        @Model.TotalInstitutions
                 </div>
-            </div>
-            <div class="four wide column">
-                <div class="statistic">
-                    <div class="value">
-                        <img src="~/Content/images/avatar/small/joe.jpg" class="ui circular inline image">
-                        42
-                    </div>
-                    <div class="label">
-                        Team Members
-                    </div>
+                <div class="label">
+                        Institutions
                 </div>
             </div>
         </div>
@@ -109,7 +94,7 @@
     
     
     <section class="">
-        <h1 class="ui horizontal divider header"><a href="/reporter/register" class="ui inverted huge blue button">Join the revolution now</a></h1>
+        <h1 class="ui horizontal divider header"><a href="@Url.Action("register", "Reporters")" class="ui inverted huge green button">Join the revolution now</a></h1>
     </section>
 
 </div>

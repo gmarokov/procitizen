@@ -26,7 +26,7 @@ namespace Reporter.Web.Controllers
         //[OutputCache(Duration = 60 * 60)]
         public ActionResult Index()
         {
-            return View(this.homeService.GetIndexViewModel(6));
+            return View(this.homeService.GetIndexViewModel());
         }
 
         [Route("about")]

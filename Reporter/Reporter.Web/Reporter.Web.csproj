@@ -253,6 +253,7 @@
     <Compile Include="Infrastructure\Services\ReportersService.cs" />
     <Compile Include="Infrastructure\Services\ReportsService.cs" />
     <Compile Include="Infrastructure\Services\StatisticsService.cs" />
+    <Compile Include="ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="ViewModels\Institutions\InstitutionDetailsViewModel.cs" />
     <Compile Include="ViewModels\Institutions\InstitutionViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
@@ -427,8 +428,10 @@
     <Content Include="Content\components\visit.min.js" />
     <Content Include="Content\Images\Avatars\default.jpg" />
     <Content Include="Content\Images\Avatars\small\default.jpg" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\institution-icon-default.png" />
-    <Content Include="Content\Images\procitizen-logo-v3-small.png" />
+    <Content Include="Content\Images\procitizen-mini-logo-vector.png" />
+    <Content Include="Content\Images\procitizen-small-logo-vector.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\semantic.css" />
     <Content Include="Content\semantic.min.css" />
@@ -455,6 +458,8 @@
     <Content Include="Areas\Administration\Views\Reports\All.cshtml" />
     <Content Include="Areas\Administration\Views\Reports\_ReportsTableBodyAdmin.cshtml" />
     <Content Include="Areas\Administration\Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\procitizen - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\procitizen - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bodymovin.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -528,8 +533,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administration\Home\" />
     <Folder Include="Areas\Administration\Views\Categories\" />
+    <Folder Include="Content\Uploads\Institutions\" />
     <Folder Include="Content\Uploads\Reports\" />
-    <Folder Include="ViewModels\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
