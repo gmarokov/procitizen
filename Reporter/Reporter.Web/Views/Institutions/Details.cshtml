@@ -1,0 +1,48 @@
+﻿@model Reporter.Web.ViewModels.Institutions.InstitutionDetailsViewModel
+
+@{
+    ViewBag.Title = "Details for Institution";
+}
+
+<div class="ui container content">
+    <h2>@ViewBag.Title</h2>
+    
+    <div class="ui secondary menu">
+        <div class="extra content">
+            <a href="@Url.Action("All", "Institutions")" class="ui animated button" tabindex="0">
+                <div class="visible content">Back</div>
+                <div class="hidden content">
+                    <i class="chevron left icon"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="ui segments text-center">
+        <div class="ui raised green segment" style="border-top: 2px solid #2185D0;">
+            <h2 class="ui header">
+                <img class="ui avatar image" src="~/Content/Images/institution-icon-default.png"><br/>
+                @Html.DisplayFor(m => m.Name)
+            </h2>
+            <span class="ui basic label">КПР: @Model.ResolveRatio %</span>
+        </div>
+        <div class="ui segment">
+            Opened reports: @Html.DisplayFor(model => model.OpenedReportsCount)
+            Resolved reports: @Html.DisplayFor(model => model.ResolvedReportsCount)
+        </div>
+        <div class="ui segment">
+            <h3>Reports</h3>
+            @*<p>@Html.DisplayFor(model => model.ResolvedReports)</p>*@
+            @*@if (Model.ResolvedReports.Any())
+            {
+                foreach (var modelReport in Model.ResolvedReports)
+                {
+                    @modelReport.Id
+                }
+            }*@
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+}

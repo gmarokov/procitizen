@@ -1,0 +1,53 @@
+﻿@model Reporter.Web.ViewModels.User.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Register with Social network";
+}
+
+<div class="ui container content">
+    <div class="ui center aligned text-center">
+        <div class="ui attached message">
+            <div class="header">
+                <h3>Associate your @ViewBag.LoginProvider account</h3>
+            </div>
+            <p>Fill out the form below to sign-up for a new account</p>
+        </div>
+        @using (Html.BeginForm("ExternalLoginConfirmation", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "ui large form form-centered attached segment", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="ui blue message">
+                <div class="content">
+                    <div class="header">
+                        You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>
+                    </div>
+                    <p>Please enter your two names and email for this site below and click the Register button to finish
+                    logging in.</p>
+                </div>
+            </div>
+            <div class="ui stacked">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "", placeholder = "Please, enter your two names" })
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "", placeholder = "Please, enter email" })
+                    </div>
+                </div>
+                <button class="ui fluid large inverted blue submit button"><i class="rocket icon"></i> Register</button>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Register" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

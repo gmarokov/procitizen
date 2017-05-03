@@ -1,0 +1,31 @@
+﻿@using Reporter.Models
+@using X.PagedList.Mvc
+@model X.PagedList.IPagedList<Reporter.Web.ViewModels.Institutions.ListInstitutionViewModel>
+
+<div class="ui grid">
+    @foreach (var institution in Model)
+    {
+        <div class="four wide column">
+            <div class="ui card link text-center">
+                
+                <div class="content">
+                    <div class="header"><img class="ui avatar image" src="~/Content/Images/institution-icon-default.png"><br /> @institution.Name</div>
+                </div>
+                <div class="content">
+                    <div class="meta">
+                        <span class="date">@Html.DisplayFor(modelItem => institution.OpenedReports) Opened reports </span>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <i class="check icon"></i>
+                    @institution.ResolvedReports Resolved reports
+                </div>
+                <div class="ui bottom attached button">
+                    <a href="/institutions/details/@institution.Id">View more</a> 
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

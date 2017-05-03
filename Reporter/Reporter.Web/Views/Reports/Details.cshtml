@@ -1,0 +1,171 @@
+﻿@model Reporter.Web.ViewModels.Reports.ReportDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="ui container content">
+    <h2>Details</h2>
+    
+    <div class="ui secondary menu">
+        <div class="extra content">
+            <div class="ui animated button" tabindex="0">
+                <div class="visible content">Back</div>
+                <div class="hidden content">
+                    <a href="@Url.Action("All", "Reports")"><i class="chevron left icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segments">
+        <div class="ui raised green clearing segment" style="border-top: 2px solid #21BA45;">
+            <h2 class="ui left floated header">
+                @Html.DisplayFor(m => m.Title)
+            </h2>
+            <div class="ui right floated header">
+                <div class="ui left labeled toggle button" tabindex="0">
+                    <a class="ui basic right pointing label">
+                        @Model.SupportsCount
+                    </a>
+                    <div class="ui green button">
+                        <i class="hand paper icon"></i> <a id="@Model.Id" class="support" style="color: white;">Support this report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui clearing segment">
+            <span class="ui red ribbon label">@Html.DisplayFor(model => model.Type)</span>
+            <div class="right floated author" style="float: right">
+                <a class="ui image label">
+                    <img src="~/Content/Images/Avatars/small/default.jpg"> @Model.ReporterName
+                </a>
+            </div>
+        </div>
+        <div class="ui segment">
+            <h3>Description</h3>
+            <p>@Html.DisplayFor(model => model.Description)</p>
+        </div>
+        <div class="ui segment">
+            <h3>Files</h3>
+            <p>
+                @if (Model.Files != null && Model.Files.Any())
+                {
+                    <div class="ui middle aligned divided list">
+                        
+                        @foreach (var file in Model.Files)
+                        {
+                            <div class="item">
+                                <div class="right floated content">
+                                    <a href="@Url.Action("Download", new { area = string.Empty, id = file.Id})" class="mini ui button"><i class="download icon"></i></a>
+                                </div>
+                                @if (file.ContentType == "image/jpeg")
+                                {
+                                    <i class="file image outline icon files-icon"></i>
+                                }
+                                else
+                                {
+                                    <i class="file outline icon files-icon"></i>
+                                }
+                                <div class="content">
+                                    @file.FileName
+                                </div>
+                            </div>
+                            
+                        @*<img src="@Url.Action("Image", "Reports", new {id = Model.ImageId.Value})" alt="@Model.Description">*@
+                        }
+
+                    </div>
+                }
+                else
+                {
+                    <h3>There are no files attached.</h3>
+                }
+            </p>
+        </div>
+        <div class="ui horizontal segments text-center">
+            <div class="ui segment">
+                <div class="ui mini statistic">
+                    <div class="label">
+                        Category
+                    </div>
+                    <div class="value">
+                        @Html.DisplayFor(model => model.CategoryName)
+                    </div>
+                </div>
+            </div>
+            <div class="ui segment">
+                <div class="ui mini statistic">
+                    <div class="label">
+                        Status
+                    </div>
+                    <div class="value">
+                        @Html.DisplayFor(model => model.Status)
+                    </div>
+                </div>
+            </div>
+            <div class="ui segment">
+                <div class="ui mini statistic">
+                    <div class="label">
+                        Views
+                    </div>
+                    <div class="value">
+                        @Model.InstitutionName
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui segment header links-social-share">
+            <h3>Share this</h3>
+            <a class="ui facebook button" href="https://facebook.com/sharer.php?u=@Request.Url.ToString()" onclick="popupwindowAtCenter(this.href, 'Share on Facebook', 600, 600);return false;">
+                <i class="facebook icon"></i> Facebook
+            </a>
+            <a class="ui twitter button" href="https://twitter.com/intent/tweet?url=@Request.Url.ToString()&text=@Model.Title" onclick="popupwindowAtCenter(this.href, 'Share on Twitter', 600, 600);return false;">
+                <i class="twitter icon"></i> Twitter
+            </a>
+            <a class="ui google plus button" href="https://plus.google.com/share?url=@Request.Url.ToString()" onclick="popupwindowAtCenter(this.href, 'Share on Google', 600, 600);return false;">
+                <i class="google plus icon"></i> Google+
+            </a>
+            <a class="ui linkedin button" href="http://www.linkedin.com/shareArticle?mini=true&url=@Request.Url.ToString()&title=@Model.Title" onclick="popupwindowAtCenter(this.href, 'Share on LinkedIn', 600, 600);return false;">
+                <i class="linkedin icon"></i> LinkedIn
+            </a>
+            <a href="mailto:?subject=@Model.Title&body=@Model.Description" class="ui blue button">
+                <i class="mail icon"></i> Email
+            </a>
+            <a href="javascript:window.print()" class="ui blue button"><i class="print icon"></i>Print</a>
+        </div>
+
+        <div class="ui secondary clearing segment">
+            <span class="ui left aligned">@Model.ViewsCount Created on: @Html.DisplayFor(model => model.CreatedOn)</span>
+            <span class="ui right aligned">Last Update on: @Html.DisplayFor(model => model.LastUpdatedOn)</span>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        $(document).on("click", "a.support", function () {
+            var id = $(this).attr('id');
+            var link = "/reports/support/" + id;
+            var a = $(this);
+            $.ajax({
+                type: "POST",
+                url: link,
+                success: function (result) {
+                    alert("liked!");
+                    a.html('<i class="fa fa-heart fa-lg text-danger"></i> (' + result + ')').removeClass("like").addClass("unlike");
+                }
+            });
+        });
+    </script>
+    
+    <script type="text/javascript">
+
+            function popupwindowAtCenter(url, title, w, h) {
+                var left = (screen.width / 2) - (w / 2);
+                var top = (screen.height / 2) - (h / 2);
+                return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+            }
+    </script> 
+}

@@ -1,0 +1,86 @@
+﻿@using Reporter.Models
+@using Reporter.Web.ViewModels.Institutions
+@using X.PagedList
+@using X.PagedList.Mvc
+
+
+@model X.PagedList.PagedList<ListInstitutionViewModel>
+
+@{
+    ViewBag.Title = "Your Local Institutions";
+}
+
+<div class="ui container content">
+    <h2>All Institutions</h2>
+
+    @if (Model.Any())
+    {
+        <div id="InstitutionsList">
+            @Html.Partial("_InstitutionsList", Model)
+        </div>
+    }
+    else
+    {
+
+    }
+
+
+</div>
+
+@section Scripts{
+    <script>
+        $('.ui.sticky')
+            .sticky();
+
+        window.addEventListener("popstate", function (e) {
+            $.ajax({
+                url: location.href,
+                success: function (result) {
+                    $('#InstitutionsList').html(result);
+                }
+            });
+        });
+
+        function ChangeUrl(page, url) {
+            if (typeof (history.pushState) != "undefined") {
+                var obj = { Page: page, Url: url };
+                history.pushState(null, obj.Page, obj.Url);
+            } else {
+                alert("Browser does not support HTML5.");
+            }
+        }
+
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+
+        $(function () {
+            $('body').on('click', '#InstitutionsList .pagination a', function (event) {
+                event.preventDefault();
+                console.log('page');
+                //var searchString = $('#SearchString').val();
+                //if (searchString == undefined || searchString == '') {
+                //    searchString = '';
+                //} else {
+                //    searchString = '&searchString=' + searchString;
+                //}
+                var url = $(this).attr('href');
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    success: function (result) {
+                        ChangeUrl('index', url);
+                        $('#InstitutionsList').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿@using Reporter.Models
+@using X.PagedList.Mvc
+@using Reporter.Web.Areas.Administration.ViewModels.Reports
+
+@model X.PagedList.IPagedList<AdminListReportViewModel>
+
+    
+    
+    
+<tbody>
+
+    @foreach (var report in Model)
+    {
+        <tr>
+            <td>@report.Title</td>
+            <td>@report.Status</td>
+            <td class="positive">@Html.DisplayFor(modelItem => report.Type)</td>
+            <td class="warning">@report.ReporterName</td>
+            
+            <td>
+                <button class="ui blue inverted icon button" onclick="getDetailBook('@report.Id')"><i class="edit icon"></i></button>
+                <button class="ui red inverted icon button" onclick="deleteReport('@report.Id')"><i class="remove icon"></i></button>
+            </td>
+        </tr>       
+    }
+</tbody>
+
+

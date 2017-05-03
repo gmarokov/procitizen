@@ -1,0 +1,83 @@
+﻿@model X.PagedList.PagedList<Reporter.Web.ViewModels.Reporters.ListReporterViewModel>
+
+@{
+    ViewBag.Title = "Reporters list";
+}
+<div class="ui container content">
+    <h2>All Reporters</h2>
+
+    @if (Model.Any())
+    {
+        <div id="ReportersList">
+            @Html.Partial("_ReportersList", Model)
+        </div>
+    }
+    else
+    {
+
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $('.ui.sticky').sticky();
+
+        $(document).ready(function ($) {
+            $('.profile.card .image').dimmer({
+                on: 'hover'
+            });
+        });
+       
+
+        window.addEventListener("popstate", function (e) {
+            $.ajax({
+                url: location.href,
+                success: function (result) {
+                    $('#ReportersList').html(result);
+                }
+            });
+        });
+
+        function ChangeUrl(page, url) {
+            if (typeof (history.pushState) != "undefined") {
+                var obj = { Page: page, Url: url };
+                history.pushState(null, obj.Page, obj.Url);
+            } else {
+                alert("Browser does not support HTML5.");
+            }
+        }
+
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+
+        $(function () {
+            $('body').on('click', '#ReportersList .pagination a', function (event) {
+                event.preventDefault();
+                console.log('page');
+                //var searchString = $('#SearchString').val();
+                //if (searchString == undefined || searchString == '') {
+                //    searchString = '';
+                //} else {
+                //    searchString = '&searchString=' + searchString;
+                //}
+                var url = $(this).attr('href');
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    success: function (result) {
+                        ChangeUrl('index', url);
+                        $('#ReportersList').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

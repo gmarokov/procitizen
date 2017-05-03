@@ -1,0 +1,35 @@
+﻿@using Reporter.Models
+@using X.PagedList.Mvc
+@model X.PagedList.IPagedList<Reporter.Web.ViewModels.Reporters.ListReporterViewModel>
+
+<div class="ui grid">
+    @foreach (var reporter in Model)
+    {
+        <div class="three wide column">
+            <div class="ui card profile link">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <a href="/reporters/details/@reporter.Id"><div class="ui inverted button">View profile</div></a>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="~/Content/Images/Avatars/default.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">@Html.DisplayFor(modelItem => reporter.FullName)</a>
+                    <div class="meta">
+                        <span class="date">Member since @Html.DisplayFor(modelItem => reporter.JoinedOn) </span>
+                    </div>
+                </div>
+                <div class="extra content">
+                        <i class="file text outline icon"></i>
+                        @Html.DisplayFor(modelItem => reporter.NumberOfReports) Reports
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

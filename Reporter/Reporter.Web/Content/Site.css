@@ -1,0 +1,132 @@
+﻿body {
+    padding-bottom: 20px;
+}
+
+/* Inputs */
+.ui.selection.dropdown {
+    width: 100%;
+}
+.labeled .dropdown {
+    border-top-right-radius: 0.28571429rem !important;
+    border-bottom-right-radius: 0.28571429rem !important;
+}
+
+/*Forms */
+
+.form-centered .field,
+.form-centered .fields,
+.form-centered .submit {
+    width: 35% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+
+.inputFiles {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+    .inputFiles + label {
+        display: inline-block;
+        font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        margin: 0em;
+        outline: none;
+        -webkit-appearance: none;
+        tap-highlight-color: rgba(255, 255, 255, 0);
+        line-height: 1.21428571em;
+        padding: 0.67857143em 1em;
+        font-size: 1em;
+        background: #FFFFFF;
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        color: rgba(0, 0, 0, 0.87);
+        border-radius: 0.28571429rem;
+        box-shadow: 0em 0em 0em 0em transparent inset;
+        -webkit-transition: color 0.1s ease, border-color 0.1s ease;
+        transition: color 0.1s ease, border-color 0.1s ease;
+    }
+
+.inputFiles + label {
+    cursor: pointer;
+}
+.inputFiles:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.inputFiles + label * {
+    pointer-events: none;
+}
+
+/* Menus*/
+.menu.secondary {
+    min-height: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 2.5em !important;
+}
+
+.item a {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+
+/* Pages */
+.ui.content.container {
+    padding: 1em 0 3em 0 !important;
+}
+
+/* Home */
+#animation {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin: auto;
+    align: middle;
+    opacity: 1.0;
+}
+.home.row {
+    margin-bottom: 7em !important;
+}
+
+/* Login */
+#socialLoginForm {
+    padding-bottom: 1em;
+}
+
+/* Reports */
+.extra.content .ui.label > .detail {
+    margin-left: 0 !important;
+}
+.item .files-icon {
+    vertical-align: midle !important;
+    font-size: 1.8em !important;
+    margin: 0 !important;
+}
+
+/* Manage menu*/
+.ui.vertical.menu {
+    width: 100% !important;
+}
+
+
+/* Utilities */
+.links-social-share a{
+    color: white !important;
+}
+
+.hide {
+    display: none;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Text classes*/
+.text-center {
+    text-align: center;
+}

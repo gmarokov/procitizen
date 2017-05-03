@@ -1,0 +1,128 @@
+﻿@using Reporter.Models
+@model IList<Reporter.Web.ViewModels.Reports.ReportViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="homepage-hero-module">
+    <div class="video-container">
+        <div class="filter"></div>
+        <video autoplay loop class="fillWidth">
+            <source src="~/Content/Video/mp4/Ground-Zero.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+            <source src="~/Content/Video/webm/Ground-Zero.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+        </video>
+        <div class="poster hidden">
+            <img src="PATH_TO_JPEG" alt="">
+        </div>
+    </div>
+</div>*@
+
+<div id="animation"></div>
+
+
+<div class="ui container content">
+    <section class="home row text-center">
+        <h1 class="ui horizontal divider header">
+            How it works?
+        </h1>
+        <div class="ui three steps" style="border: none;">
+            <div class="step">
+                <i class="add blue user icon"></i>
+                <div class="content">
+                    <div class="title">Create profile</div>
+                    <div class="description">Become part of your local community.</div>
+                </div>
+            </div>
+            <div class="step">
+                <i class="warning blue circle icon"></i><br />
+                <div class="content">
+                    <div class="title">Report</div>
+                    <div class="description">Make suggestions or report problems and earn badges.</div>
+                </div>
+            </div>
+            <div class="step">
+                <i class="info blue icon"></i>
+                <div class="content">
+                    <div class="title">Get feedback</div>
+                    <div class="description">Get feedback from your local community administration.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="home row text-center">
+        <h1 class="ui horizontal divider header"> What is this? </h1>
+        <p>A few words about the project Link to more.</p>
+        <a href="/home/about" class="ui huge inverted green button">More about it</a>
+    </section>
+    
+ 
+    <section class="home row text-center">
+        <h1 class="ui horizontal  divider header">
+            Support your local community
+        </h1>
+        <div class="ui statistics grid">
+            <div class="four wide column">
+                <div class="statistic">
+                    <div class="value">
+                        22
+                    </div>
+                    <div class="label">
+                        Saves
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div class="statistic">
+                    <div class="text value">
+                        Three<br>
+                        Thousand
+                    </div>
+                    <div class="label">
+                        Signups
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div class="statistic">
+                    <div class="value">
+                        <i class="plane icon"></i> 5
+                    </div>
+                    <div class="label">
+                        Flights
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div class="statistic">
+                    <div class="value">
+                        <img src="~/Content/images/avatar/small/joe.jpg" class="ui circular inline image">
+                        42
+                    </div>
+                    <div class="label">
+                        Team Members
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="">
+        <h1 class="ui horizontal divider header"><a href="/reporter/register" class="ui inverted huge blue button">Join the revolution now</a></h1>
+    </section>
+
+</div>
+@section Scripts{
+    <script>
+var animData = {
+            wrapper: document.getElementById('animation'),
+            animType: 'svg',
+            loop: true,
+            prerender: true,
+            autoplay: true,
+            path: 'http://res.cloudinary.com/rodetyo/raw/upload/v1462460587/kish.json'
+        };
+        var anim = bodymovin.loadAnimation(animData);
+    </script>
+}

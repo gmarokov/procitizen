@@ -1,0 +1,73 @@
+﻿@model Reporter.Web.ViewModels.Reporters.ReporterDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="ui container content">
+    <h2>Details</h2>
+    
+    <div class="ui secondary menu">
+        <div class="extra content">
+            <div class="ui animated button" tabindex="0">
+                <div class="visible content">Back</div>
+                <div class="hidden content">
+                    <a href="@Url.Action("All", "Reporters")"><i class="chevron left icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui segments">
+        <div class="ui raised clearing blue segment" style="border-top: 2px solid #2185D0; font-size: 1.6rem;">
+            <div class="ui left floated header">
+                <div class="text">
+                    <img class="ui avatar image" src="~/Content/Images/Avatars/small/default.jpg">
+
+                    @Html.DisplayFor(m => m.FullName)
+
+                </div>
+
+            </div>
+            <div class="ui right floated header">
+                <a class="ui blue circular label" data-tooltip="Reputation points" data-inverted="" style="font-size: 2rem; vertical-align: middle; margin-top: 0;"><i class="star half empty icon"></i>  122</a>
+            </div>
+           
+        </div>
+        <div class="ui raised segment">
+            <div class="ui mini horizontal divided list">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Member since: @Html.DisplayFor(model => model.JoinedOn)</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Total number of reports: @Model.Reports.Count</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui segment">
+            <h3>List of Reports for this user</h3>
+            @if (Model.Reports.Any())
+            {
+                foreach (var modelReport in Model.Reports)
+                {
+                    <div class="ui list">
+                        <div class="item">
+                            <i class="file text outline icon"></i>
+                            <div class="content">
+                                <a href="@Url.Action("Details", "Reports", new { id = modelReport.Id })" class="header">@modelReport.Title</a>
+                                <div class="description">@modelReport.Description.Substring(0, 10)</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+}

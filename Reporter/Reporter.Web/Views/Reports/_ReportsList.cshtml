@@ -1,0 +1,71 @@
+﻿@using Reporter.Models
+@using Reporter.Web.ViewModels.Reports
+@using X.PagedList.Mvc
+@model X.PagedList.IPagedList<ListReportViewModel>
+    
+<div class="ui grid">
+
+    @foreach (var report in Model)
+    {
+        <div class="four wide column">
+            <article class="ui link card">
+                <div class="content">
+                    <div class="header">@report.Title</div>
+                </div>
+                <div class="content">
+                    @if ((int) report.Type == (int) ReportType.Complain)
+                    {
+                        <a class="ui red ribbon label">@Html.DisplayFor(modelItem => report.Type)</a>
+                    }
+                    else
+                    {
+                        <a class="ui blue ribbon label">@Html.DisplayFor(modelItem => report.Type)</a>
+                    }
+                    <div class="right floated author">
+                        <a class="ui image label">
+                            <img src="~/Content/Images/Avatars/small/default.jpg"> @report.ReporterName
+                        </a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">@Html.DisplayFor(modelItem => report.CategoryName)</h4>
+                    <div class="ui small feed">
+                        <div class="event">
+                            <div class="content">
+                                <div class="summary">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event">
+                            <div class="content">
+                                <div class="summary">
+                                    @Html.DisplayFor(modelItem => report.Description)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="extra text-center content">
+                    <div class="ui label">
+                        <i class="file outline icon"></i>
+                        <div class="detail">@report.FilesCount</div>
+                    </div>
+                    <div class="ui label">
+                        <i class="hand paper icon"></i> 
+                        <div class="detail">@report.SupportsCount</div>
+                    </div>
+                    <div class="ui label">
+                        <i class="unhide icon"></i> 
+                        <div class="detail">@report.ViewsCount</div>
+                    </div>
+                </div>
+                <div class="ui bottom attached button">
+                    <a href="/reports/details/@report.Id">More details</a>
+                </div>
+            </article>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

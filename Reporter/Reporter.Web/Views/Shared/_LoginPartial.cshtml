@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNet.Identity
+@using Reporter.Common
+@using Reporter.Web.Areas.Administration
+
+@if (Request.IsAuthenticated)
+{
+        <div class="ui pointing inline dropdown">
+            <div class="text">
+                <img class="ui avatar image" src="~/Content/Images/Avatars/small/default.jpg">
+                 @Html.DisplayFor(u => User.Identity.Name)
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item">
+                    <a href="@Url.Action("Index", "Manage", new { area = string.Empty, title = "Manage"})"><i class="setting icon"></i> Manage account</a>
+                </div>
+                @*<div class="item"><a href="@Url.Action("Index", "Manage", new { area = string.Empty})"><i class="setting icon"></i> Manage your reports</a></div>*@
+                <div class="divider"></div>
+                
+                @if (User.IsInRole(GlobalConstants.AdminRole))
+                {
+                    <div class="item">
+                        <a href="@Url.Action("Index", "Home", new { area = "Administration"})"><i class="lab icon"></i> Admin panel</a>
+                    </div>
+                }
+                <div class="item">
+                    <a href="@Url.Action("Index", "Home", new { area = "Administration", title = "Manage"})"><i class="options icon"></i> App settings</a>
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    @using (Html.BeginForm("LogOff", "User", new { area = string.Empty }, FormMethod.Post, new {id = "logoutForm", @class = ""}))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="sign out icon"></i> Logout</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+}
+else
+{
+    <div class="ui buttons">
+        @Html.ActionLink("Log in", "login", "User", new { area = string.Empty }, htmlAttributes: new { id = "loginLink", @class = "ui button" })
+        <div class="or"></div>
+        @Html.ActionLink("Register", "register", "User", new { area = string.Empty }, htmlAttributes: new { id = "registerLink", @class = "ui blue button" })
+    </div>
+}
+
+@section Scripts{
+    
+}

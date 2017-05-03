@@ -1,0 +1,178 @@
+﻿@model Reporter.Web.ViewModels.Manage.IndexViewModel
+@{
+    ViewBag.Title = "Manage - Your profile";
+}
+<div class="ui container content">
+    <h2>@ViewBag.Title</h2>
+    
+    @if (!Model.HasPassword)
+    {
+    <div class="ui info floating message">
+        <i class="close icon"></i>
+        <div class="header">
+            <i class="info icon"></i> Please, <a href="@Url.Action("SetPassword", "Manage")"> Create password</a> to use website's full functionalities.
+        </div>
+    </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+    {
+        <div class="ui success floating message">
+            <i class="close icon"></i>
+            <div class="header">
+                <i class="checkmark icon"></i> @ViewBag.StatusMessage
+            </div>
+        </div>
+    }
+    
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui vertical menu">
+                <div class="item">
+                    <div class="header">Account settings</div>
+                    <div class="menu">
+                        <div class="item">
+                            <a href="@Url.Action("Index", "Manage")"><i class="user alternate icon"></i> You</a>
+                        </div>
+                        @if (Model.HasPassword)
+                        {
+                            <div class="item">
+                                <a href="@Url.Action("ChangePassword", "Manage")"><i class="unlock alternate icon"></i> Change password</a>
+                            </div>
+                            <div class="item">
+                                <a href="@Url.Action("ManageLogins", "Manage")"><i class="unlock icon"></i> Manage external logins</a>
+                            </div>
+                        }
+
+                        else
+                        {
+                            <div class="item">
+                                <a href="@Url.Action("SetPassword", "Manage")"><i class="unlock icon"></i> Create password</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">Manage reports</div>
+                    <div class="menu">
+                        <div class="item">
+                            <a class="ui disabled">My reports</a>
+                            <div class="ui red horizontal label">
+                                Soon!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">Support</div>
+                    <div class="menu">
+                        <div class="item">
+                            <a class="ui disabled">E-mail Support</a>
+                            <div class="ui red horizontal label">
+                                Soon!
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="ui disabled">FAQs</a>
+                            <div class="ui red horizontal label">
+                                Soon!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui segments">
+                <div class="ui raised clearing segment" style="font-size: 1.6em;">
+                    <div class="ui left floated header">
+                        <div class="text">
+                            <img class="ui avatar image" src="~/Content/Images/Avatars/small/default.jpg">
+
+                            @Html.DisplayFor(m => m.User.FullName)
+                        </div>
+                    </div>
+                    <div class="ui right floated header">
+                        <a class="ui blue circular label" data-tooltip="Reputation points" data-inverted="" style="font-size: 2rem; vertical-align: middle; margin-top: 0;"><i class="star half empty icon"></i> @Model.User.Points</a>
+                    </div>
+                </div>
+                <div class="ui segment">
+                    <div class="ui horizontal divided list">
+                        <div class="item">You have @Model.User.Reports.Count reports</div>
+                        <div class="item">You have @Model.Logins.Count external logins</div>
+                        <div class="item">Your emails is @Model.User.Email</div>
+
+                    </div>
+                </div>
+                <div class="ui secondary segment">
+                    Browser remembered? @Model.BrowserRemembered
+                    You have joined the community on: @Model.User.JoinedOn
+                </div>
+        </div>
+            
+        </div>
+    </div>
+</div>
+
+        @*@Model.Logins.Count // Login counts
+
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+                <dt>Phone Number:</dt>
+                <dd>
+                    @(Model.PhoneNumber ?? "None")
+                    @if (Model.PhoneNumber != null)
+                    {
+                        <br />
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                        }
+                    }
+                    else
+                    {
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    }
+                </dd>
+
+            <dt>Two-Factor Authentication:</dt>
+            <dd>
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>
+               @if (Model.TwoFactor)
+                    {
+                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()                            <text>Enabled
+                            <input type="submit" value="Disable" class="btn btn-link" />
+                            </text>
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>Disabled
+                            <input type="submit" value="Enable" class="btn btn-link" />
+                            </text>
+                        }
+                    }*@
+
+@section Scripts{
+    <script>
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
+    </script>
+}

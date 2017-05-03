@@ -1,0 +1,113 @@
+﻿@using Reporter.Web.ViewModels.Statistics
+
+@model IndexStatisticViewModel
+
+@{
+    ViewBag.Title = "Rankings for your community";
+}
+
+<div class="ui container content">
+    <h2>@ViewBag.Title</h2>
+    <div class="ui segment">
+        <div class="ui mini statistic">
+            <div class="label">
+                <i class="trophy icon"></i> Top Reporter
+            </div>
+            <div class="value">
+                 @Html.DisplayFor(m => m.TopReporter);
+            </div>
+
+        </div>
+        <div class="ui mini statistic">
+            <div class="label">
+                <i class="trophy icon"></i> Top Institution
+            </div>
+            <div class="value">
+                @Html.DisplayFor(m => m.TopInstitution);
+            </div>
+
+        </div>
+    </div>
+
+    <div class="ui top attached menu">
+        <a class="item active">
+            Top 10 Reporters
+        </a>
+    </div>
+    <div class="ui attached segment">
+        <table class="ui very basic three celled table">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Reporter</th>
+                <th>Reputation points</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for (var i = 0; i < Model.Top10Reporters.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        <h4 class="ui image header">
+                            <img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+                            <div class="content">
+                                @Model.Top10Reporters[i].FullName
+                                @*<div class="sub header">
+                                    Human Resources
+                                </div>*@
+                            </div>
+                        </h4>
+                    </td>
+                    <td>
+                        @Model.Top10Reporters[i].Points
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="ui attached menu">
+        <a class="item blue inverted active">
+            Top 10 Institutions
+        </a>
+    </div>
+    <div class="ui attached segment">
+        <table class="ui very basic four celled table">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Institution</th>
+                <th>Resolved Reports</th>
+                <th>Resolve Ratio</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Top10Institutions.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @(i + 1)
+                        </td>
+                        <td>
+                            <h4 class="ui image header">
+                                <img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+                                <div class="content">
+                                    @Model.Top10Institutions[i].Name
+                                </div>
+                            </h4>
+                        </td>
+                        <td>
+                            @Model.Top10Institutions[i].ResolvedReportsCount
+                        </td>
+                        <td>
+                            @Model.Top10Institutions[i].ResolveRatio %
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

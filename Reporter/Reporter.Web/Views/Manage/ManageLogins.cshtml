@@ -1,0 +1,91 @@
+﻿@model Reporter.Web.ViewModels.Manage.ManageLoginsViewModel
+@using Microsoft.Owin.Security
+@{
+    ViewBag.Title = "Manage - your external logins";
+}
+<div class="ui container content">
+    <h2>@ViewBag.Title</h2>
+
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div class="ui grid">
+        <div class="four wide column">
+            @Html.Partial("_ManageMenuPartial")
+        </div>
+        <div class="twelve wide column">
+            
+            @{
+                var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+                if (loginProviders.Count() == 0)
+                {
+                    <div class="ui attached message">
+                        <div class="header">
+                            <h3>external authentication services.</h3>
+                            <p>
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
+                            </p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (Model.CurrentLogins.Count > 0)
+                    {
+                        <div class="ui attached message">
+                            <div class="header">
+                                <h3>Registered Logins.</h3>
+                            </div>
+                        </div>
+                        <div class="ui attached segment">
+                            @foreach (var account in Model.CurrentLogins)
+                            {
+                                var formId = "remove" + account.LoginProvider + "form";
+
+                                if (ViewBag.ShowRemoveButton)
+                                {
+                                    using (Html.BeginForm("RemoveLogin", "Manage", FormMethod.Post, new { id = formId }))
+                                    {
+                                    <div class="ui left labeled button" tabindex="0">
+                                        @Html.AntiForgeryToken()
+
+                                        @Html.Hidden("loginProvider", account.LoginProvider)
+                                        @Html.Hidden("providerKey", account.ProviderKey)
+                                        <a href="javascript:document.getElementById('@formId').submit()" class="ui basic label submit"  title="Remove this @account.LoginProvider login from your account"> Remove</a>
+                                        <div class="ui icon button">
+                                            @account.LoginProvider
+                                        </div>
+                                    </div>
+                                    }
+                                }
+                                else
+                                {
+                                     @: &nbsp;
+                                }
+                            }
+                        </div>
+                    }
+                    if (Model.OtherLogins.Count > 0)
+                    {
+                        <div class="ui attached message">
+                            <div class="header">
+                                <h3>Available external login providers.</h3>
+                            </div>
+                        </div>
+                        using (Html.BeginForm("LinkLogin", "Manage"))
+                        {
+                            <div class="ui attached segment">
+                                @Html.AntiForgeryToken()
+                                <div id="socialLoginList">
+                                    @foreach (AuthenticationDescription p in Model.OtherLogins)
+                                    {
+                                        <button type="submit" class="ui blue button" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
