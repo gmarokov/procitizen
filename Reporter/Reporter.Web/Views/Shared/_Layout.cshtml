@@ -84,17 +84,21 @@
                 </div>
                 <div class="seven wide column">
                     <h4 class="ui inverted header">Footer Header</h4>
-                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    <p>
+                        <a class="ui basic green button">
+                            <i class="icon github"></i> Fork us on GitHub
+                        </a>
+                    </p>
                 </div>
             </div>
             <div class="ui inverted section divider"></div>
             <img src="~/Content/Images/procitizen-mini-logo-vector.png" class="ui centered mini image">
             <p>&copy; @DateTime.Now.Year - Procitizen</p>
             <div class="ui horizontal inverted small divided link list">
-                <a class="item" href="https://semantic-ui.com/examples/fixed.html#">Site Map</a>
-                <a class="item" href="https://semantic-ui.com/examples/fixed.html#">Contact Us</a>
-                <a class="item" href="https://semantic-ui.com/examples/fixed.html#">Terms and Conditions</a>
-                <a class="item" href="https://semantic-ui.com/examples/fixed.html#">Privacy Policy</a>
+                <a class="item" href="@Url.Action("sitemap", "home", new { area = string.Empty })">Site Map</a>
+                <a class="item" href="@Url.Action("contact", "home", new { area = string.Empty })">Contact Us</a>
+                <a class="item" href="@Url.Action("tersmandconditions", "home", new { area = string.Empty })">Terms and Conditions</a>
+                <a class="item" href="@Url.Action("privacypolicy", "home", new { area = string.Empty })">Privacy Policy</a>
             </div>
         </div>
     </div>

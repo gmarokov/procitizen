@@ -14,7 +14,7 @@
                 <i class="trophy icon"></i> Top Reporter
             </div>
             <div class="value">
-                 @Html.DisplayFor(m => m.TopReporter);
+                 @Html.DisplayFor(m => m.TopReporter)
             </div>
 
         </div>
@@ -23,7 +23,7 @@
                 <i class="trophy icon"></i> Top Institution
             </div>
             <div class="value">
-                @Html.DisplayFor(m => m.TopInstitution);
+                @Html.DisplayFor(m => m.TopInstitution)
             </div>
 
         </div>
@@ -52,7 +52,7 @@
                     </td>
                     <td>
                         <h4 class="ui image header">
-                            <img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+                            <img src="~/Content/Images/Avatars/small/default.jpg" class="ui mini rounded image">
                             <div class="content">
                                 @Model.Top10Reporters[i].FullName
                                 @*<div class="sub header">
@@ -93,7 +93,7 @@
                         </td>
                         <td>
                             <h4 class="ui image header">
-                                <img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+                                <img src="~/Content/Images/institution-icon-default.png" class="ui mini rounded image">
                                 <div class="content">
                                     @Model.Top10Institutions[i].Name
                                 </div>

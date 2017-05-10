@@ -1,9 +1,8 @@
 .pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 20px 0;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
 }
 
 .pagination > li {
@@ -42,18 +41,18 @@
   background-color: #eeeeee;
 }
 
-    .pagination > .active > a,
-    .pagination > .active > span,
-    .pagination > .active > a:hover,
-    .pagination > .active > span:hover,
-    .pagination > .active > a:focus,
-    .pagination > .active > span:focus {
-        z-index: 2;
-        color: #ffffff;
-        cursor: default;
-        background-color: #2185D0;
-        border-color: #2185D0;
-    }
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #ffffff;
+  cursor: default;
+  background-color: #428bca;
+  border-color: #428bca;
+}
 
 .pagination > .disabled > span,
 .pagination > .disabled > a,
