@@ -20,8 +20,8 @@ namespace Reporter.Models
         }
 
         public string FullName { get; set; }
-
         public DateTime? JoinedOn { get; set; }
+        public string Phone { get; set; }
 
         [DefaultValue(10)]
         public int Points { get; set; }

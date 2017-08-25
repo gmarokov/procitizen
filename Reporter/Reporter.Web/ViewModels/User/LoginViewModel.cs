@@ -4,12 +4,12 @@ namespace Reporter.Web.ViewModels.User
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "{0} is required.")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

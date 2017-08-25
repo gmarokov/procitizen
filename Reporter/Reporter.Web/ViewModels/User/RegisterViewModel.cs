@@ -4,17 +4,17 @@ namespace Reporter.Web.ViewModels.User
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Full name is required.")]
         [StringLength(50, ErrorMessage = "The {0} must be max 50 chars.")]
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required.")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -24,5 +24,9 @@ namespace Reporter.Web.ViewModels.User
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
     }
 }
