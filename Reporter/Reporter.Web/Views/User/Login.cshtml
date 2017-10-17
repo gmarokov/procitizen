@@ -22,14 +22,12 @@
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
                             @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail address", @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
                             @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
                         </div>
                     </div>
                     <div class="inline field">
@@ -65,35 +63,35 @@
 
 @section Scripts {
     <script>
-        $('.ui.form')
-            .form({
-                fields: {
-                    email: {
-                        identifier: 'Email',
-                        rules: [
-                            {
-                                type: 'email',
-                                prompt: 'Please enter a valid e-mail'
-                            }
-                        ]
-                    },
-                    password: {
-                        identifier: 'Password',
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Please enter a password'
-                            },
-                            {
-                                type: 'minLength[6]',
-                                prompt: 'Your password must be at least {ruleValue} characters'
-                            }
-                        ]
-                    },
-                },
-                inline: true,
-                on: 'blur'
-            });
+        //$('.ui.form')
+        //    .form({
+        //        fields: {
+        //            email: {
+        //                identifier: 'Email',
+        //                rules: [
+        //                    {
+        //                        type: 'email',
+        //                        prompt: 'Please enter a valid e-mail'
+        //                    }
+        //                ]
+        //            },
+        //            password: {
+        //                identifier: 'Password',
+        //                rules: [
+        //                    {
+        //                        type: 'empty',
+        //                        prompt: 'Please enter a password'
+        //                    },
+        //                    {
+        //                        type: 'minLength[6]',
+        //                        prompt: 'Your password must be at least {ruleValue} characters'
+        //                    }
+        //                ]
+        //            },
+        //        },
+        //        inline: true,
+        //        on: 'blur'
+        //    });
 
         $('.ui.checkbox').checkbox();
     </script>

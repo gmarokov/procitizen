@@ -107,58 +107,64 @@ namespace Reporter.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateReportViewModel report)
         {
-            if (report != null && ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var reportForDb = Mapper.Instance.Map<Report>(report);
-                reportForDb.Id = Guid.NewGuid();
-                this.UserProfile.Points += 10;
-                reportForDb.Reporter = this.UserProfile;
-
-                reportForDb.CreatedOn = DateTime.Now;
-                reportForDb.LastUpdatedOn = DateTime.Now;
-                reportForDb.Status = ReportStatus.Waiting;
-
-                if (report.FilesForReport != null)
+                var createReportViewModel = new CreateReportViewModel()
                 {
-                    if (this.reportsService.IsContentTypeValid(report.FilesForReport))
-                    {
-                        var uploadDir = $"~/Content/Uploads/Reports/{reportForDb.Id}/";
-                        Directory.CreateDirectory(Server.MapPath(uploadDir));
+                    Categories = this.populator.GetCategories(),
+                    Institutions = this.populator.GetInstitutions()
+                };
 
-                        for (var i = 0; i < Request.Files.Count; i++)
-                        {
-                            var file = Request.Files[i];
-
-                            if (file != null && file.ContentLength > 0)
-                            {
-                                var fileForDb = new Models.File()
-                                {
-                                    Id = Guid.NewGuid(),
-                                    FileName = file.FileName.Split('.').First(),
-                                    FileExtension = file.FileName.Split('.').Last(),
-                                    ContentType = file.ContentType,
-                                    FileUrl = Path.Combine(uploadDir, file.FileName)
-                                };
-                                var filePath = Path.Combine(Server.MapPath(uploadDir), file.FileName);
-                                reportForDb.Files.Add(fileForDb);
-                                file.SaveAs(filePath);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("FilesForReport", "Not allowed file content!");
-                    }
-                }
-
-                this.Data.Reports.Add(reportForDb);
-                this.Data.SaveChanges();
-
-                //Redirect to current report?
-                return RedirectToAction("Details", new {id = reportForDb.Id});
+                return View(createReportViewModel);
             }
 
-            return View();
+            var reportForDb = Mapper.Instance.Map<Report>(report);
+            reportForDb.Id = Guid.NewGuid();
+            this.UserProfile.Points += 10;
+            reportForDb.Reporter = this.UserProfile;
+
+            reportForDb.CreatedOn = DateTime.Now;
+            reportForDb.LastUpdatedOn = DateTime.Now;
+            reportForDb.Status = ReportStatus.Waiting;
+
+            if (report.FilesForReport != null)
+            {
+                if (this.reportsService.IsContentTypeValid(report.FilesForReport))
+                {
+                    var uploadDir = $"~/Content/Uploads/Reports/{reportForDb.Id}/";
+                    Directory.CreateDirectory(Server.MapPath(uploadDir));
+
+                    for (var i = 0; i < Request.Files.Count; i++)
+                    {
+                        var file = Request.Files[i];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileForDb = new Models.File()
+                            {
+                                Id = Guid.NewGuid(),
+                                FileName = file.FileName.Split('.').First(),
+                                FileExtension = file.FileName.Split('.').Last(),
+                                ContentType = file.ContentType,
+                                FileUrl = Path.Combine(uploadDir, file.FileName)
+                            };
+                            var filePath = Path.Combine(Server.MapPath(uploadDir), file.FileName);
+                            reportForDb.Files.Add(fileForDb);
+                            file.SaveAs(filePath);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("FilesForReport", "Not allowed file content!");
+                }
+            }
+
+            this.Data.Reports.Add(reportForDb);
+            this.Data.SaveChanges();
+
+            //Redirect to current report?
+            return RedirectToAction("Details", new {id = reportForDb.Id});
         }
 
         // GET: reports/download/{id}
